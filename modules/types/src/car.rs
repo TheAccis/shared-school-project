@@ -17,11 +17,16 @@ impl Car {
 		let velocity = match dir {
 			Direction::North => Vec2::new(0.0, -speed),
 			Direction::South => Vec2::new(0.0, speed),
-			Direction::West  => Vec2::new(-speed, 0.0),
-			Direction::East  => Vec2::new(speed, 0.0),
+			Direction::West => Vec2::new(-speed, 0.0),
+			Direction::East => Vec2::new(speed, 0.0),
 		};
 
-		Self { moving: true, pos, velocity, dir }
+		Self {
+			moving: true,
+			pos,
+			velocity,
+			dir,
+		}
 	}
 
 	#[inline]
@@ -37,10 +42,9 @@ impl Car {
 		}
 
 		match self.dir {
-			Direction::North => self.pos.y <= stop.pos,
-			Direction::South => self.pos.y >= stop.pos,
-			Direction::West  => self.pos.x <= stop.pos,
-			Direction::East  => self.pos.x >= stop.pos,
+			Direction::North | Direction::West => self.front() <= stop.pos,
+
+			Direction::South | Direction::East => self.front() >= stop.pos,
 		}
 	}
 
@@ -61,5 +65,18 @@ impl Car {
 		self.pos.cmpgt(max).any() || self.pos.cmplt(min).any()
 	}
 
-	pub fn pos(&self) -> Vec2 { self.pos }
+	pub fn front(&self) -> f32 {
+		let size = self.size();
+
+		match self.dir {
+			Direction::North => self.pos.y,
+			Direction::South => self.pos.y + size.y,
+			Direction::West => self.pos.x,
+			Direction::East => self.pos.x + size.x,
+		}
+	}
+
+	pub fn pos(&self) -> Vec2 {
+		self.pos
+	}
 }
