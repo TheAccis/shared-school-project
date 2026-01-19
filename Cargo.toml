@@ -1,5 +1,9 @@
 [workspace]
 resolver = "3"
 members = [
-	"app"
+	"modules/simulation",
+	"modules/graphics",
+	"modules/metrics",
+	"modules/types",
+	"app",
 ]
