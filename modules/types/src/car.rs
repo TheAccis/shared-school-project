@@ -24,15 +24,11 @@ impl Car {
         Self { moving: true, pos, velocity, dir }
     }
 
+    #[inline]
     pub fn step(&mut self) {
         if self.moving {
             self.pos += self.velocity;
         }
-    }
-
-    #[inline]
-    pub fn move_forward(&mut self) {
-        self.pos += self.velocity;
     }
 
     pub fn size(&self) -> Vec2 {
