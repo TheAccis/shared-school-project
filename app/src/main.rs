@@ -24,7 +24,7 @@ async fn main() {
         }
 
         for car_view in car_views.iter_mut() {
-            car_view.car.moving = true; // пока все всегда едут
+            car_view.car.moving = true;
             car_view.car.step();
         }
 
