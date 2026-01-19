@@ -263,7 +263,9 @@ name = "shared-school-project"
 version = "0.1.0"
 dependencies = [
  "fastrand",
+ "graphics",
  "macroquad",
+ "types",
 ]
 
 [[package]]
