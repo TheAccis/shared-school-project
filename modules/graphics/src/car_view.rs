@@ -14,10 +14,10 @@ impl CarView {
 		let n = fastrand::i32(0..4);
 
 		let pos = match n {
-			0 => Vec2::new(w/speed - Car::WIDTH, h),
-			1 => Vec2::new(w/speed - Car::WIDTH, -Car::HEIGHT),
-			2 => Vec2::new(w, h/speed - Car::WIDTH/2.0),
-			3 => Vec2::new(-Car::HEIGHT, h/speed - Car::WIDTH/2.0),
+			0 => Vec2::new(w/2.0 - Car::WIDTH, h),
+			1 => Vec2::new(w/2.0 - Car::WIDTH, -Car::HEIGHT),
+			2 => Vec2::new(w, h/2.0 - Car::WIDTH/2.0),
+			3 => Vec2::new(-Car::HEIGHT, h/2.0 - Car::WIDTH/2.0),
 			_ => unreachable!()
 		};
 

@@ -2,9 +2,10 @@ use crate::Direction;
 use glam::Vec2;
 
 pub struct Car {
-    pos: Vec2,
-    velocity: Vec2,
+    pub moving: bool,
     dir: Direction,
+    velocity: Vec2,
+    pos: Vec2,
 }
 
 impl Car {
@@ -20,11 +21,17 @@ impl Car {
             Direction::East  => Vec2::new(speed, 0.0),
         };
 
-        Self { pos, velocity, dir }
+        Self { moving: true, pos, velocity, dir }
+    }
+
+    pub fn step(&mut self) {
+        if self.moving {
+            self.pos += self.velocity;
+        }
     }
 
     #[inline]
-    pub fn update(&mut self) {
+    pub fn move_forward(&mut self) {
         self.pos += self.velocity;
     }
 

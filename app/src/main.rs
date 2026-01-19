@@ -1,58 +1,14 @@
 use macroquad::prelude::*;
+use graphics::CarView;
 use glam::Vec2;
-
-#[derive(Copy, Clone)]
-enum Direction {
-    North,
-    South,
-    West,
-    East,
-}
-
-struct Car {
-    x: f32,
-    y: f32,
-    dir: Direction,
-    color: Color,
-    speed: f32,
-}
-
-impl Car {
-    fn update(&mut self) {
-        match self.dir {
-            Direction::North => self.y -= self.speed,
-            Direction::South => self.y += self.speed,
-            Direction::West  => self.x -= self.speed,
-            Direction::East  => self.x += self.speed,
-        }
-    }
-
-    fn draw(&self) {
-        let size= self.size();
-        draw_rectangle(self.x, self.y, size.x, size.y, self.color);
-    }
-
-    fn size(&self) -> Vec2 {
-        match self.dir {
-            Direction::North | Direction::South => Vec2::new(10.0, 20.0),
-            Direction::West | Direction::East => Vec2::new(20.0, 10.0),
-        }
-    }
-
-    fn is_outside(&self) -> bool {
-        self.x < -50.0
-            || self.x > screen_width() + 50.0
-            || self.y < -50.0
-            || self.y > screen_height() + 50.0
-    }
-}
 
 #[macroquad::main("Traffic Intersection Demo")]
 async fn main() {
     let font = load_ttf_font("res/Inter_18pt-Medium.ttf").await.unwrap();
 
-    let mut cars: Vec<Car> = vec![];
+    let mut car_views: Vec<CarView> = vec![];
     let spawn_prob = 2; // %
+    let speed: f32 = 2.0;
 
     let mut adaptive_mode = false;
 
@@ -64,18 +20,20 @@ async fn main() {
         draw_crossroad();
 
         if fastrand::i32(0..100) < spawn_prob {
-            cars.push(spawn_car());
+            car_views.push(CarView::new(speed));
         }
 
-        for car in cars.iter_mut() {
-            car.update();
+        for car_view in car_views.iter_mut() {
+            car_view.car.moving = true; // пока все всегда едут
+            car_view.car.step();
         }
 
-        for car in cars.iter() {
-            car.draw();
+        for car_view in car_views.iter() {
+            car_view.draw();
         }
 
-        cars.retain(|car| !car.is_outside());
+        let screen_size = Vec2::new(screen_width(), screen_height());
+        car_views.retain(|car_view| !car_view.car.is_outside(screen_size));
 
         let mode_text = if adaptive_mode {
             "Режим: Адаптивный"
@@ -102,27 +60,6 @@ async fn main() {
         }
 
         next_frame().await;
-    }
-}
-
-fn spawn_car() -> Car {
-    let color = Color::from_rgba(
-        fastrand::u8(0..=255),
-        fastrand::u8(0..=255),
-        fastrand::u8(0..=255),
-        255
-    );
-
-    let w = screen_width();
-    let h = screen_height();
-    let speed = 2.0;
-
-    match fastrand::i32(0..4) {
-        0 => Car { x: w/2.0 - 10.0, y: h, dir: Direction::North, color, speed },
-        1 => Car { x: w/2.0 - 10.0, y: -10.0, dir: Direction::South, color, speed },
-        2 => Car { x: w, y: h/2.0 - 5.0, dir: Direction::West, color, speed },
-        3 => Car { x: -20.0, y: h/2.0 - 5.0, dir: Direction::East, color, speed },
-        _ => unreachable!()
     }
 }
 
