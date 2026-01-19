@@ -44,4 +44,6 @@ impl Car {
 
         self.pos.cmpgt(max).any() || self.pos.cmplt(min).any()
     }
+
+    pub fn pos(&self) -> Vec2 { self.pos }
 }
