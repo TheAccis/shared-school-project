@@ -118,6 +118,11 @@ dependencies = [
 [[package]]
 name = "graphics"
 version = "0.1.0"
+dependencies = [
+ "fastrand",
+ "macroquad",
+ "types",
+]
 
 [[package]]
 name = "hashbrown"
