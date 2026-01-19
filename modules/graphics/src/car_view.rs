@@ -2,7 +2,7 @@ use macroquad::prelude::*;
 use types::{Car, Direction};
 
 pub struct CarView {
-	car: Car,
+	pub car: Car,
 	color: Color
 }
 
