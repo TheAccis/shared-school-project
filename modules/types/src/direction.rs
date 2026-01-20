@@ -5,3 +5,9 @@ pub enum Direction {
     West,
     East,
 }
+
+impl Direction {
+    pub fn all() -> [Direction; 4] {
+        [Self::North, Self::South, Self::West, Self::East]
+    }
+}
