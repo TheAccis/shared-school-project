@@ -1,7 +1,9 @@
 use glam::Vec2;
-use graphics::CarView;
+use graphics::{CarView, TrafficLightView};
 use macroquad::prelude::*;
 use types::*;
+
+const LINE_THICKNESS: f32 = 50.0;
 
 #[macroquad::main("Traffic Intersection Demo")]
 async fn main() {
@@ -31,6 +33,27 @@ async fn main() {
 		},
 	];
 
+	let lights = vec![
+		TrafficLight::new(Direction::North, 5.0),
+		TrafficLight::new(Direction::South, 5.0),
+		TrafficLight::new(Direction::West, 5.0),
+		TrafficLight::new(Direction::East, 5.0),
+	];
+
+	let mut light_views: Vec<TrafficLightView> = lights
+		.into_iter()
+		.enumerate()
+		.map(|(_i, l)| {
+			let pos = match l.dir {
+				Direction::North => Vec2::new(screen_size.x / 2.0 - 50.0, 50.0),
+				Direction::South => Vec2::new(screen_size.x / 2.0 + 50.0, screen_size.y - 50.0),
+				Direction::West => Vec2::new(50.0, screen_size.y / 2.0 - 50.0),
+				Direction::East => Vec2::new(screen_size.x - 50.0, screen_size.y / 2.0 + 50.0),
+			};
+			TrafficLightView::new(l, pos)
+		})
+		.collect();
+
 	let mut adaptive_mode = false;
 
 	fastrand::seed(0);
@@ -47,7 +70,7 @@ async fn main() {
 		for car_view in car_views.iter_mut() {
 			let car = &mut car_view.car;
 
-			car.moving = true; // дефолт
+			car.moving = true;
 
 			for stop in &stop_lines {
 				if car.reached_stop_line(stop) {
@@ -57,6 +80,16 @@ async fn main() {
 			}
 
 			car.step();
+		}
+
+		let dt = get_frame_time();
+
+		for light in light_views.iter_mut() {
+			light.traffic_light.update(dt);
+		}
+
+		for view in light_views.iter() {
+			view.draw();
 		}
 
 		for car_view in car_views.iter() {
@@ -101,8 +134,6 @@ fn draw_crossroad() {
 	let w = screen_width();
 	let h = screen_height();
 
-	let line_thickness = 40.0;
-
-	draw_rectangle(0.0, h / 2.0 - line_thickness / 2.0, w, line_thickness, GRAY);
-	draw_rectangle(w / 2.0 - line_thickness / 2.0, 0.0, line_thickness, h, GRAY);
+	draw_rectangle(0.0, h / 2.0 - LINE_THICKNESS / 2.0, w, LINE_THICKNESS, GRAY);
+	draw_rectangle(w / 2.0 - LINE_THICKNESS / 2.0, 0.0, LINE_THICKNESS, h, GRAY);
 }
