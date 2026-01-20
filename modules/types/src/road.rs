@@ -1,14 +1,13 @@
 use std::collections::VecDeque;
-use crate::Car;
+use crate::{Car, Direction};
 
-struct Road {
+pub struct Road {
+    pub dir: Direction,
     queue: VecDeque<Car>,
 }
 
 impl Road {
-    fn new() -> Self {
-        Self {
-            queue: VecDeque::new(),
-        }
+    fn new(dir: Direction) -> Self {
+        Self { dir, queue: VecDeque::new() }
     }
 }
