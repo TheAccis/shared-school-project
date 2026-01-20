@@ -4,3 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+types = { path = "../types" }
+
+glam = { version = "0.27", default-features = false, features = ["libm"] } # macroquad compability
+fastrand = "2.3.0"
