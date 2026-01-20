@@ -3,11 +3,11 @@ use crate::{Car, Direction};
 
 pub struct Road {
     pub dir: Direction,
-    queue: VecDeque<Car>,
+    pub queue: VecDeque<Car>,
 }
 
 impl Road {
-    fn new(dir: Direction) -> Self {
+    pub fn new(dir: Direction) -> Self {
         Self { dir, queue: VecDeque::new() }
     }
 }
