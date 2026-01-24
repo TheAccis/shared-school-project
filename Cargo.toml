@@ -1,9 +1,9 @@
-[workspace]
-resolver = "3"
-members = [
-	"modules/simulation",
-	"modules/graphics",
-	"modules/metrics",
-	"modules/types",
-	"app",
-]
+[package]
+name = "shared-school-project"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+image = { version = "0.24", features = ["webp"] }
+macroquad = "0.4.14"
+fastrand = "2.3.0"
