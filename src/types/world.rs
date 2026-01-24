@@ -20,34 +20,26 @@ impl World {
 		let v_road = Road::new(road_center, road_width, Orientation::Vertical);
 
 		let mut lane_east = Lane::new(
-			0,
 			-road_width / 4.0,
 			lane_length,
-			road_width / 2.0,
 			Direction::Forward,
 			Orientation::Horizontal,
 		);
 		let mut lane_west = Lane::new(
-			1,
 			road_width / 4.0,
 			lane_length,
-			road_width / 2.0,
 			Direction::Backward,
 			Orientation::Horizontal,
 		);
 		let mut lane_north = Lane::new(
-			2,
 			road_width / 4.0,
 			lane_length,
-			road_width / 2.0,
 			Direction::Forward,
 			Orientation::Vertical,
 		);
 		let mut lane_south = Lane::new(
-			3,
 			-road_width / 4.0,
 			lane_length,
-			road_width / 2.0,
 			Direction::Backward,
 			Orientation::Vertical,
 		);
@@ -100,25 +92,21 @@ impl World {
 		lane_east.lights.push(TrafficLight::new(
 			0.0,
 			LightState::Red,
-			lane_east.id,
 			compute_light_pos(&lane_east),
 		));
 		lane_west.lights.push(TrafficLight::new(
 			0.0,
 			LightState::Red,
-			lane_west.id,
 			compute_light_pos(&lane_west),
 		));
 		lane_north.lights.push(TrafficLight::new(
 			0.0,
 			LightState::Green,
-			lane_north.id,
 			compute_light_pos(&lane_north),
 		));
 		lane_south.lights.push(TrafficLight::new(
 			0.0,
 			LightState::Red,
-			lane_south.id,
 			compute_light_pos(&lane_south),
 		));
 

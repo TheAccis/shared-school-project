@@ -6,15 +6,13 @@ use macroquad::prelude::*;
 pub struct TrafficLight {
 	pub stop_s: f32,
 	pub state: LightState,
-	pub lane_id: usize,
 	pub pos: Vec2,
 }
 impl TrafficLight {
-	pub fn new(stop_s: f32, state: LightState, lane_id: usize, pos: Vec2) -> Self {
+	pub fn new(stop_s: f32, state: LightState, pos: Vec2) -> Self {
 		Self {
 			stop_s,
 			state,
-			lane_id,
 			pos,
 		}
 	}

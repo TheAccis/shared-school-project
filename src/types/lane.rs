@@ -4,32 +4,26 @@ use macroquad::prelude::*;
 
 #[derive(Clone, Debug)]
 pub struct Lane {
-	pub id: usize,
 	pub offset_from_center: f32,
 	pub cars: Vec<Car>,
 	pub length: f32,
 	pub direction: Direction,
-	pub width: f32,
 	pub orientation: Orientation,
 	pub lights: Vec<TrafficLight>,
 	pub spawner: Option<Spawner>,
 }
 impl Lane {
 	pub fn new(
-		id: usize,
 		offset: f32,
 		length: f32,
-		width: f32,
 		direction: Direction,
 		orientation: Orientation,
 	) -> Self {
 		Self {
-			id,
 			offset_from_center: offset,
 			cars: vec![],
 			length,
 			direction,
-			width,
 			orientation,
 			lights: vec![],
 			spawner: None,

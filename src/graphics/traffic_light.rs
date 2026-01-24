@@ -5,8 +5,8 @@ use crate::io::Assets;
 use crate::types::{LightState, TrafficLight};
 
 impl Drawable for TrafficLight {
-	fn draw(&self, _cam: &WorldCamera, resources: &Assets) {
-		if let Some(tex) = resources.light_textures.get(&self.state) {
+	fn draw(&self, _cam: &WorldCamera, assets: &Assets) {
+		if let Some(tex) = assets.light_textures.get(&self.state) {
 			const LIGHT_TEXTURE_WORLD_SIZE: f32 = 2.0;
 			let dest_size = Some(vec2(LIGHT_TEXTURE_WORLD_SIZE, LIGHT_TEXTURE_WORLD_SIZE));
 

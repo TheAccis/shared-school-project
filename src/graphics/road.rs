@@ -7,7 +7,7 @@ use crate::io::Assets;
 use macroquad::prelude::*;
 
 impl Drawable for Road {
-	fn draw(&self, cam: &WorldCamera, _resources: &Assets) {
+	fn draw(&self, cam: &WorldCamera, _assets: &Assets) {
 		let half_screen = cam.world_screen_size() / 2.0;
 
 		match self.orientation {
