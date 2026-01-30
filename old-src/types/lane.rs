@@ -31,6 +31,10 @@ impl Lane {
 	}
 
 	pub fn update(&mut self, dt: f32) {
+		for light in &mut self.lights {
+			light.update(dt);
+		}
+
 		let dir_sign = match self.direction {
 			Direction::Forward => 1.0,
 			Direction::Backward => -1.0,

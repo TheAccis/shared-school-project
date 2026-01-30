@@ -11,6 +11,7 @@ pub struct World {
 }
 impl World {
 	pub fn new(
+		behaviour: TrafficLightBehaviour,
 		road_center: Vec2,
 		road_width: f32,
 		lane_length: f32,
@@ -90,21 +91,25 @@ impl World {
 		};
 
 		lane_east.lights.push(TrafficLight::new(
+			behaviour,
 			0.0,
 			LightState::Red,
 			compute_light_pos(&lane_east),
 		));
 		lane_west.lights.push(TrafficLight::new(
+			behaviour,
 			0.0,
 			LightState::Red,
 			compute_light_pos(&lane_west),
 		));
 		lane_north.lights.push(TrafficLight::new(
+			behaviour,
 			0.0,
-			LightState::Green,
+			LightState::Red,
 			compute_light_pos(&lane_north),
 		));
 		lane_south.lights.push(TrafficLight::new(
+			behaviour,
 			0.0,
 			LightState::Red,
 			compute_light_pos(&lane_south),
@@ -148,9 +153,7 @@ impl World {
 					lane.spawn_car(car);
 				}
 			}
-		}
 
-		for lane in &mut self.lanes {
 			lane.update(dt);
 		}
 	}

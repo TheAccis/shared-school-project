@@ -16,7 +16,12 @@ async fn main() {
 	let mut camera = WorldCamera::new(10.0);
 	let world_center = vec2(0.0, 0.0);
 
-	let mut world = World::new(world_center, 10.0, 200.0, assets);
+	let mut world = World::new(
+		TrafficLightBehaviour::Standart,
+		world_center,
+		10.0,
+		200.0,
+		assets);
 
 	const FIXED_DT: f32 = 1.0 / 60.0;
 	let mut accumulator: f32 = 0.0;
